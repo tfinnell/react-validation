@@ -1,13 +1,13 @@
 # react-validation
 
-Component providing simple form validation for react components. It uses [Controlled Components](https://facebook.github.io/react/docs/forms.html#controlled-components) approach for validation.
+React component providing simple form validation. It uses the [Controlled Components](https://facebook.github.io/react/docs/forms.html#controlled-components) approach for validation.
 
-It is not easy to validate forms with React. Due to the one-way data flow style, can't affect forms thru inputs in a straight-forward and simple way.
+It is not easy to validate forms with React. Due to the one-way data flow style, affecting forms thru inputs in a straight-forward and simple way becomes difficult.
 React-validation provides several form elements wrapped as React components which are connected to a Form component.
 
 ### [DEMO](http://lesha-spr.github.io/react-validation/)
 
-React-validation focuses on providing a validation library without a coupling to a model or anything similar. To access form-data we recommend FormData or [form-serialize](https://www.npmjs.com/package/form-serialize).
+React-validation focuses on providing a validation library without coupling a model or anything similar. To access form-data we recommend FormData or [form-serialize](https://www.npmjs.com/package/form-serialize).
 
 ##### NOTE: Be aware to always pass ```name``` prop. It is required.
 
@@ -25,7 +25,7 @@ npm install react-validation
 
 ## Example usage
 
-With @2.x, react-validation is no longer dependent ```validator```. You may use whatever validation strategy you want by extending the ```Validation.rules``` object.
+With @2.x, react-validation is no longer dependent on ```validator```. You may use whatever validation strategy you want by extending the ```Validation.rules``` object.
 Let's take a look on it's initial state:
 
 ```javascript
