@@ -2,7 +2,8 @@
 
 React component providing simple form validation. It uses the [Controlled Components](https://facebook.github.io/react/docs/forms.html#controlled-components) approach for validation.
 
-It is not easy to validate forms with React. Due to the one-way data flow style, affecting forms thru inputs in a straight-forward and simple way becomes difficult.
+It is not easy to validate forms with React. Due to the one-way data flow style, altering forms based on inputs in a straight-forward way becomes difficult.
+
 React-validation provides several form elements wrapped as React components which are connected to a Form component.
 
 ### [DEMO](http://lesha-spr.github.io/react-validation/)
@@ -26,15 +27,15 @@ npm install react-validation
 ## Example usage
 
 With @2.x, react-validation is no longer dependent on ```validator```. You may use whatever validation strategy you want by extending the ```Validation.rules``` object.
-Let's take a look on it's initial state:
+Let's take a look at it's initial state:
 
 ```javascript
 module.exports = {};
 ```
 
-That's it, just an empty object literal. We don't have any validation rules out of the box because of and extremely high amount of possibilities, but it's still recommended to use a well tested library.
+That's it, just an empty object literal. We don't have any validation rules out of the box because of an extremely high number of possibilities, but it's still recommended to use a well tested library.
 
-So first of all let's extend it and add some rules:
+First, let's extend it and add some rules:
 
 ```javascript
 import React from 'react';
@@ -50,7 +51,7 @@ Object.assign(Validation.rules, {
             return value.trim();
         },
         // Function to return hint
-        // You may use current value to inject it in some way to the hint
+        // You may inject the current value into the hint
         hint: value => {
             return <span className='form-error is-visible'>Required</span>
         }
@@ -61,7 +62,7 @@ Object.assign(Validation.rules, {
             return validator.isEmail(value);
         },
         hint: value => {
-            return <span className='form-error is-visible'>{value} isnt an Email.</span>
+            return <span className='form-error is-visible'>{value} is not an Email.</span>
         }
     },
     // This example shows a way to handle common task - compare two fields for equality
@@ -90,7 +91,7 @@ Object.assign(Validation.rules, {
 });
 ```
 
-We've added ```required``` and ```email``` to our rules with provided hints. This might be separated file where all the rules are registered.
+We've added ```required``` and ```email``` to our rules with provided hints. This might be a separate file where all the rules are registered.
 
 That's it. We can now use it in our react components:
 
@@ -130,16 +131,19 @@ Note the ```validations``` prop. It's an array of strings which maps to the rule
 ```react-validation``` provides the following components within the ```components``` object:
 ```Form```
 ```Input```
-```Select```
 ```Textarea```
+```Select```
 ```Button```
 
-All of them are just a custom wrappers around the native components. They can accept any valid attributes and a few extra:
-```containerClassName``` - ```Input```, ```Select``` and ```Textarea``` wraps a native components with extra block. This prop adds a ```className``` to the wrapper.
-```validations``` - ```Input```, ```Select``` and ```Textarea``` accepts an array of validations strings which refers to the rules object's keys.
-```errorClassName``` - ```Input```, ```Select```, ```Button``` and ```Textarea``` adds it to ```className``` on error occur.
+All of them are just custom wrappers around the native components. They accept any valid attributes and a few extra:
 
-##### NOTE: Be aware to always provide ```name``` prop to ```Input```, ```Select``` and ```Textarea```
+|                    | Input | Textarea | Select | Button |                                                                                |
+|--------------------|-------|----------|--------|--------|--------------------------------------------------------------------------------|
+| validations        | X     | X        | X      |        | Accepts an array of validations strings which refer to the rules object's keys |
+| containerClassName | X     | X        | X      |        | Adds a ```className``` to the wrapper around the native component              |
+| errorClassName     | X     | X        | X      | X      | Adds a ```className``` on error occur   
+
+##### NOTE: Be aware to always provide a ```name``` prop to ```Input```, ```Select``` and ```Textarea```
 
 ### Form component
 
@@ -158,7 +162,7 @@ method
 
 ```Form``` provides three public methods:
 
-```validate(name)``` - validates input with passed name. The difference between this method and default validation that ```validate``` marks input as ```isUsed``` and ```isChanged```.
+```validate(name)``` - validates input with passed name. The difference between this method and default validation is that ```validate``` marks input as ```isUsed``` and ```isChanged```.
 
 ```name``` - name of corresponding component.
 
@@ -166,7 +170,7 @@ method
 
 ```hint``` - optional hint to show.
 
-```hideError(name)``` - hides an corresponding component's error.
+```hideError(name)``` - hides a corresponding component's error.
 
 ```validateAll()``` - validates all react-validation components. Returns map (key: field name prop, value: non passed validation rule) of invalid fields.
 
@@ -218,10 +222,10 @@ The wrapper around the native ```input```. It accepts a ```validations``` prop -
 <Validation.components.Input name='firstname' validations={['alpha', 'lt8']}/>
 ```
 
-##### NOTE: For types ```radio``` and ```checkbox``` react-validation will drop the ```value``` to an empty string when it's not checked. This is to avoid validation of non checked inputs.
+##### NOTE: For types ```radio``` and ```checkbox```, react-validation will drop the ```value``` to an empty string when it's not checked. This is to avoid validation of non checked inputs.
 
-Assuming both the rules provided (lt8 - lesser than 8 value's length) to react-validation will fail validation with the first error that occurs.
-In the example above for ```really long value with d1g1t``` input's value the ```alpha``` rule will break validation first. We can control it by ordering rules within the ```validations``` array.
+Both the rules provided to react-validation will fail validation with the first error that occurs. (lt8 - value length less than 8)
+In the example above for ```really long value with d1g1t``` input's value the ```alpha``` rule will break validation first. We can control this by ordering rules within the ```validations``` array.
 
 ### Textarea component
 
@@ -241,7 +245,7 @@ The wrapper around the native ```textarea```. Like the ```Input``` component, it
 Validation.components.Select
 ```
 
-The wrapper around the native ```textarea```. Like the ```Input``` component, it accepts ```validations``` as a prop. Nothing special here:
+The wrapper around the native ```select```. Like the ```Input``` component, it accepts ```validations``` as a prop. Nothing special here:
 
 ```javascript
 <Validation.components.Select name='city' value='' validations={['required']}>
@@ -258,12 +262,12 @@ The wrapper around the native ```textarea```. Like the ```Input``` component, it
 Validation.components.Button
 ```
 
-The wrapper around the native ```button```. React-validation disables (adds ```disabled``` prop) the button when an error occurs. This behavior may be suppressed by passing the ```disabled``` prop to the component.
+The wrapper around the native ```button```. React-validation disables the button (adds ```disabled``` prop) when an error occurs. This behavior may be suppressed by passing the ```disabled``` prop to the component.
 
 ## Migration from 1.*
 
 #### extendErrors API
-```extendErrors``` is no longer exists. Replace it with new approach of validation rules registration. ```hint``` appearance is now fully controlled:
+```extendErrors``` no longer exists. Replace it with new approach of validation rules registration. ```hint``` appearance is now fully controlled:
 
 ```javascript
 Object.assign(Validation.rules, {
